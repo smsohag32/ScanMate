@@ -24,6 +24,7 @@ import {
 import QRCode from "qrcode";
 import JsBarcode from "jsbarcode";
 import { Card, CardContent } from "../ui/card";
+import LoadingSpinner from "../loading-spinner/LoadingSpinner";
 
 type CodeType = "qr" | "barcode";
 type GenerationMethod = "serial" | "random";
@@ -43,6 +44,7 @@ export default function BulkCodeGenerator() {
    const [generatedCodes, setGeneratedCodes] = useState<GeneratedCode[]>([]);
    const [errors, setErrors] = useState<{ [key: string]: string | null }>({});
    const [isGLoading, setIsGLoading] = useState<boolean>(false);
+   const [downloadLoading, setDownloadLoading] = useState(false);
    const validateInputs = () => {
       const validationErrors: { [key: string]: string | null } = {};
 
@@ -66,38 +68,44 @@ export default function BulkCodeGenerator() {
       }
 
       setIsGLoading(true);
+      await new Promise((resolve) => setTimeout(resolve, 0));
 
-      const newCodes: GeneratedCode[] = [];
-      for (let i = 0; i < quantity; i++) {
-         let code: string;
-         if (generationMethod === "serial") {
-            code = `${prefix.toUpperCase()}${(startNumber + i).toString().padStart(5, "0")}`;
-         } else {
-            code = `${prefix.toUpperCase()}${Math.random()
-               .toString(36)
-               .substr(2, 5)
-               .toUpperCase()}`;
+      try {
+         const newCodes: GeneratedCode[] = [];
+
+         for (let i = 0; i < quantity; i++) {
+            let code: string;
+            if (generationMethod === "serial") {
+               code = `${prefix.toUpperCase()}${(startNumber + i).toString().padStart(5, "0")}`;
+            } else {
+               code = `${prefix.toUpperCase()}${Math.random()
+                  .toString(36)
+                  .substr(2, 5)
+                  .toUpperCase()}`;
+            }
+
+            let imageUrl: string;
+            if (codeType === "qr") {
+               imageUrl = await QRCode.toDataURL(code); // Await QR Code generation
+            } else {
+               const canvas = document.createElement("canvas");
+               JsBarcode(canvas, code, { format: "CODE128" });
+               imageUrl = canvas.toDataURL("image/png"); // Generate barcode image
+            }
+
+            newCodes.push({ id: i + 1, code, imageUrl });
          }
 
-         let imageUrl: string;
-         if (codeType === "qr") {
-            imageUrl = await QRCode.toDataURL(code);
-         } else {
-            const canvas = document.createElement("canvas");
-            JsBarcode(canvas, code, { format: "CODE128" });
-            imageUrl = canvas.toDataURL("image/png");
-         }
-
-         newCodes.push({ id: i + 1, code, imageUrl });
+         setGeneratedCodes(newCodes);
+      } catch (error) {
+         console.error("Error generating codes:", error);
+      } finally {
+         setIsGLoading(false);
       }
-
-      // Once all codes are generated, update the state
-      setGeneratedCodes(newCodes);
-
-      setIsGLoading(false);
    };
 
    const downloadExcel = async () => {
+      setDownloadLoading(true);
       const workbook = new ExcelJS.Workbook();
       const worksheet = workbook.addWorksheet("Codes");
 
@@ -129,9 +137,8 @@ export default function BulkCodeGenerator() {
 
       const buffer = await workbook.xlsx.writeBuffer();
       saveAs(new Blob([buffer]), "generated_codes_with_images.xlsx");
+      setDownloadLoading(false);
    };
-
-   console.log(isGLoading);
 
    return (
       <div className="bg-[#F2F2FF] pb-10">
@@ -234,7 +241,7 @@ export default function BulkCodeGenerator() {
                </Button>
             </div>
             {isGLoading ? (
-               <p>Loading</p>
+               <LoadingSpinner />
             ) : (
                <>
                   {generatedCodes.length > 0 ? (
@@ -244,7 +251,11 @@ export default function BulkCodeGenerator() {
                               <p>
                                  Total generated codes <span>{generatedCodes.length}</span>
                               </p>
-                              <Button onClick={downloadExcel}>Download All</Button>
+                              <Button
+                                 disabled={downloadLoading}
+                                 onClick={downloadExcel}>
+                                 Download All
+                              </Button>
                            </div>
                            <Table>
                               <TableHeader>
