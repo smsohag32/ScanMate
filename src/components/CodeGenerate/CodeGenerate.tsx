@@ -202,7 +202,7 @@ export function CodeGenerator({
                </Label>
             </div>
          </RadioGroup>
-         <div className="pt-4 max-w-sm mx-auto">
+         <div className="pt-4 max-w-sm lg:mx-0 mx-auto">
             <Button
                type="submit"
                className="w-full"

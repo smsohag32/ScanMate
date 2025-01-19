@@ -14,7 +14,7 @@ This is a web-based QR and Barcode Generator that allows users to create bulk QR
 
 ## Demo
 
--  You can try out a live demo of the application [here](https://sohagsheik.vercel.app/).
+-  You can try out a live demo of the application [here](https://qrandbar-code-generator.web.app/).
 
 ## Technologies Used
 
