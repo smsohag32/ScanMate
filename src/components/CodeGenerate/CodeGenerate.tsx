@@ -6,22 +6,40 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { CodeType, InputType } from "@/types/index";
 import { Barcode, QrCode, Globe, Mail, Phone, Wifi, AlertCircle, Eye, EyeOff } from "lucide-react";
+import { ColorPicker } from "../ui/color-picker";
 
 interface CodeGeneratorProps {
    setCodeData: (data: string) => void;
    setCodeType: (type: CodeType) => void;
    setInputType: (type: InputType) => void;
    inputType: InputType;
+   color: string;
+   setColor: (data: string) => void;
+   backgroundColor: string;
+   setBackgroundColor: (value: string) => void;
+   codeWidth: number;
+   setCodeWidth: (value: number) => void;
 }
 
-export function CodeGenerator({ setCodeData, setCodeType, inputType }: CodeGeneratorProps) {
+export function CodeGenerator({
+   setCodeData,
+   setCodeType,
+   color,
+   setColor,
+   inputType,
+   backgroundColor,
+   setBackgroundColor,
+   codeWidth,
+   setCodeWidth,
+}: CodeGeneratorProps) {
    const [input, setInput] = useState("");
    const [wifiPassword, setWifiPassword] = useState("");
    const [type, setType] = useState<CodeType>("qrcode");
    const [error, setError] = useState<string | null>(null);
    const [isLoading, setIsLoading] = useState(false);
    const [showPassword, setShowPassword] = useState(false);
-
+   const [widthInput, setWidthInput] = useState<string>(codeWidth.toString());
+   const [widthErr, setWidthErr] = useState<string | null>("");
    const inputTypeConfig = {
       url: {
          icon: <Globe className="h-4 w-4" />,
@@ -62,6 +80,14 @@ export function CodeGenerator({ setCodeData, setCodeType, inputType }: CodeGener
       }
    };
 
+   const validateWidth = () => {
+      if (Number(widthInput) < 10 || Number(widthInput) > 300) {
+         return "Width must be between 10 and 300 pixels.";
+      }
+      return null;
+   };
+
+   // hangle generate
    const handleSubmit = async (e: React.FormEvent) => {
       e.preventDefault();
       const validationError = validateInput();
@@ -69,16 +95,23 @@ export function CodeGenerator({ setCodeData, setCodeType, inputType }: CodeGener
          setError(validationError);
          return;
       }
+      const widthError = validateWidth();
+      if (widthError) {
+         setWidthErr(widthError);
+         return;
+      }
       setError(null);
+      setWidthErr(null);
       setIsLoading(true);
       try {
-         await new Promise((resolve) => setTimeout(resolve, 1000));
+         await new Promise((resolve) => setTimeout(resolve, 400));
          if (inputType === "wifi") {
             setCodeData(`WIFI:S:${input};T:WPA;P:${wifiPassword};;`);
          } else {
             setCodeData(input);
          }
          setCodeType(type);
+         setCodeWidth(Number(widthInput));
       } catch {
          setError("An error occurred while generating the code. Please try again.");
       } finally {
@@ -169,13 +202,58 @@ export function CodeGenerator({ setCodeData, setCodeType, inputType }: CodeGener
                </Label>
             </div>
          </RadioGroup>
-         <div className="pt-4 max-w-sm">
+         <div className="pt-4 max-w-sm mx-auto">
             <Button
                type="submit"
                className="w-full"
                disabled={isLoading || !input}>
                {isLoading ? "Generating..." : "Generate Code"}
             </Button>
+         </div>
+
+         {/* customize style  */}
+
+         <div className="mt-6  rounded-sm border-slate-200">
+            <p>Customize Styles</p>
+            <div className="flex items-center">
+               <div className="flex  mt-4 items-center gap-4 w-full">
+                  <Label htmlFor="color">Code Color</Label>
+                  <ColorPicker
+                     onChange={(v) => {
+                        setColor(v);
+                     }}
+                     value={color}
+                  />
+               </div>
+               <div className="flex  mt-4 items-center gap-4 w-full">
+                  <Label htmlFor="color">Background Color</Label>
+                  <ColorPicker
+                     onChange={(v) => {
+                        setBackgroundColor(v);
+                     }}
+                     value={backgroundColor}
+                  />
+               </div>
+            </div>
+            <div className="  mt-2 items-center gap-4 w-full">
+               <p>Size</p>
+               <div className="flex mt-1 flex-col lg:flex-row items-center gap-4">
+                  <Input
+                     placeholder="Width"
+                     value={widthInput}
+                     className="lg:max-w-sm w-full"
+                     onChange={(e) => setWidthInput(e.target.value)}
+                     type="number"
+                     min={0}
+                  />
+                  {widthErr && (
+                     <p className="text-red-500 text-sm flex items-center mt-1">
+                        <AlertCircle className="h-4 w-4 mr-1" />
+                        {widthErr}
+                     </p>
+                  )}
+               </div>
+            </div>
          </div>
       </form>
    );

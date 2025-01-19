@@ -1,3 +1,4 @@
+import Footer from "@/components/footer/Footer";
 import { Outlet } from "react-router-dom";
 import { Toaster } from "sonner";
 
@@ -9,6 +10,7 @@ const MainLayout = () => {
             position="top-center"
             richColors
          />
+         <Footer />
       </div>
    );
 };

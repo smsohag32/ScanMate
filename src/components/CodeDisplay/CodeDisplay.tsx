@@ -10,9 +10,19 @@ interface CodeDisplayProps {
    codeData: string;
    codeType: CodeType;
    inputType: string;
+   color: string;
+   backgroundColor: string;
+   codeWidth: number;
 }
 
-export function CodeDisplay({ codeData, codeType }: CodeDisplayProps) {
+export function CodeDisplay({
+   codeData,
+   codeType,
+   color,
+   codeWidth,
+
+   backgroundColor,
+}: CodeDisplayProps) {
    const codeRef = useRef<HTMLDivElement>(null);
    const [isCopy, setIsCopy] = useState<boolean>(false);
    // download code
@@ -76,13 +86,19 @@ export function CodeDisplay({ codeData, codeType }: CodeDisplayProps) {
    return (
       <div className=" p-4 relative bg-white rounded-[8px]">
          {!codeData ? (
-            <div className="flex justify-center  bg-white p-4 opacity-50 rounded-lg lg:shadow">
+            <div className="flex justify-center  bg-white p-4 opacity-50 overflow-hidden rounded-lg lg:shadow">
                {codeType === "barcode" ? (
-                  <Barcode value={"Preview"} />
+                  <Barcode
+                     lineColor={color}
+                     background={backgroundColor}
+                     value={"Preview"}
+                  />
                ) : (
                   <QRCodeCanvas
+                     fgColor={color}
+                     bgColor={backgroundColor}
                      value={"Preview"}
-                     size={256}
+                     size={codeWidth}
                   />
                )}
             </div>
@@ -91,11 +107,17 @@ export function CodeDisplay({ codeData, codeType }: CodeDisplayProps) {
                ref={codeRef}
                className="flex justify-center p-4  bg-white rounded-lg lg:shadow">
                {codeType === "barcode" ? (
-                  <Barcode value={codeData} />
+                  <Barcode
+                     lineColor={color}
+                     background={backgroundColor}
+                     value={codeData}
+                  />
                ) : (
                   <QRCodeCanvas
                      value={codeData}
-                     size={256}
+                     bgColor={backgroundColor}
+                     fgColor={color}
+                     size={codeWidth}
                   />
                )}
             </div>
