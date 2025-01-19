@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -42,9 +43,12 @@ export function CodeGenerator({ setCodeData, setCodeType, inputType }: CodeGener
    const validateInput = () => {
       switch (inputType) {
          case "url":
-            return /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/.test(input)
+            return /^(https?:\/\/)?(www\.)?([a-zA-Z0-9\-]+(\.[a-zA-Z0-9\-]+)+)(\/[^\s]*)?$/.test(
+               input
+            )
                ? null
                : "Please enter a valid URL";
+
          case "email":
             return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input)
                ? null
@@ -68,7 +72,6 @@ export function CodeGenerator({ setCodeData, setCodeType, inputType }: CodeGener
       setError(null);
       setIsLoading(true);
       try {
-         // Simulating an API call or processing delay
          await new Promise((resolve) => setTimeout(resolve, 1000));
          if (inputType === "wifi") {
             setCodeData(`WIFI:S:${input};T:WPA;P:${wifiPassword};;`);
@@ -86,7 +89,7 @@ export function CodeGenerator({ setCodeData, setCodeType, inputType }: CodeGener
    return (
       <form
          onSubmit={handleSubmit}
-         className="space-y-6 ">
+         className="space-y-6  bg-[#ffffff] p-4 h-full rounded-[8px] ">
          <div className="grid gap-2">
             <Label
                htmlFor="code-input"
@@ -170,7 +173,7 @@ export function CodeGenerator({ setCodeData, setCodeType, inputType }: CodeGener
             <Button
                type="submit"
                className="w-full"
-               disabled={isLoading || error === null || !input}>
+               disabled={isLoading || !input}>
                {isLoading ? "Generating..." : "Generate Code"}
             </Button>
          </div>

@@ -20,11 +20,11 @@ const CodeGenerateContainer = () => {
    return (
       <div className="min-h-screen bg-[#F2F2FF] py-10">
          <div className="container mx-auto px-4 ">
-            <h1 className="text-3xl font-normal uppercase text-center">
+            <h1 className="text-3xl font-normal text-center">
                QR Code & Bar Code{"  "}
                <span className="relative">
                   Generator
-                  <span className="h-8 absolute w-full top-1 rounded-[4px] shadow-sm ring-blue-900 ring border-blue-800 left-0 right-0 -bottom-5"></span>
+                  <span className="h-8 absolute w-full top-1 rounded-[4px] shadow-sm ring-primary ring border-primary left-0 right-0 -bottom-5"></span>
                </span>
             </h1>
             <div className="mt-6 mb-3 bg-[#ffffff] px-3 py-3 flex items-center flex-wrap justify-center gap-3">
@@ -42,8 +42,8 @@ const CodeGenerateContainer = () => {
                   </div>
                ))}
             </div>
-            <div className="grid grid-cols-1 bg-white lg:p-4 lg:grid-cols-3 rounded-[sm] w-full gap-8">
-               <div className="lg:col-span-2 w-full">
+            <div className="grid grid-cols-1 lg:grid-cols-3 rounded-[sm] w-full gap-4 h-full">
+               <div className="lg:col-span-2 w-full h-full">
                   <CodeGenerator
                      setCodeData={setCodeData}
                      setCodeType={setCodeType}
