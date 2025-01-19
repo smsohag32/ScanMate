@@ -1,7 +1,9 @@
+import CodeGenerateContainer from "./CodeGenerateContainer";
+
 const HomePage = () => {
    return (
       <div>
-         <p>Home page</p>
+         <CodeGenerateContainer />
       </div>
    );
 };
