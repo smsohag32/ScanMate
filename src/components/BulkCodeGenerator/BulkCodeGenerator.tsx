@@ -69,7 +69,7 @@ export default function BulkCodeGenerator() {
       if (!validateInputs()) {
          return;
       }
-
+      setGeneratedCodes([]);
       setIsGenerating(true);
       setProgress(0);
       abortControllerRef.current = new AbortController();
@@ -98,7 +98,7 @@ export default function BulkCodeGenerator() {
          setIsGenerating(false);
          abortControllerRef.current = null;
       }
-   }, [quantity, validateInputs]);
+   }, [quantity, codeType, validateInputs]);
 
    const generateBatch = async (start: number, batchSize: number) => {
       const batchCodes: GeneratedCode[] = [];
