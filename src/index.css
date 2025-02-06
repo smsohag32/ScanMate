@@ -61,9 +61,12 @@
 
 @layer base {
    * {
-      @apply border-border;
+      @apply m-0 p-0;
    }
    body {
-      @apply bg-background text-foreground;
+      @apply m-0 p-0 bg-background text-foreground;
+   }
+   .main-container {
+      @apply w-full max-w-screen-xl mx-auto flex flex-col items-center justify-center;
    }
 }

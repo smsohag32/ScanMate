@@ -20,8 +20,10 @@ const CodeGenerateContainer = () => {
    ];
 
    return (
-      <div className=" bg-[#F2F2FF] py-10">
-         <div className="container mx-auto px-4 ">
+      <div
+         id="generate"
+         className=" bg-[#F2F2FF] py-10">
+         <div className="main-container">
             <div>
                <h1 className="text-2xl lg:text-3xl font-normal text-center">
                   QR Code & Bar Code{" "}
