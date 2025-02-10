@@ -24,7 +24,7 @@ const Footer = () => {
 
    return (
       <footer className=" ">
-         <div className="container mx-auto border-t py-6 border-white flex justify-center flex-col lg:flex-row gap-4 px-4 ">
+         <div className="main-container border-t py-6 border-white flex justify-center flex-col lg:flex-row gap-4 px-4 ">
             <p>
                Develop by{" "}
                <Link

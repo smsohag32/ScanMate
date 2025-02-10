@@ -179,13 +179,10 @@ export default function BulkCodeGenerator() {
 
    return (
       <div className="bg-[#F2F2FF] pb-10">
-         <div className="container px-4 mx-auto">
+         <div className="main-container w-full">
             <div className="mb-6">
                <h1 className="text-2xl lg:text-3xl font-normal text-center">
-                  <span className="relative">
-                     Bulk
-                     <span className="h-8 absolute w-full top-1 rounded-[4px] shadow-sm ring-primary ring border-primary left-0 right-0 -bottom-5"></span>
-                  </span>
+                  <span className="relative font-bold text-primary">Bulk</span>
                   {"  "} QR or Bar Code Generator
                </h1>
                <p className="text-center text-gray-600 max-w-4xl mx-auto mt-2">
@@ -197,7 +194,7 @@ export default function BulkCodeGenerator() {
                </p>
             </div>
 
-            <Card className="mb-4">
+            <Card className="mb-4 w-full">
                <CardContent className="p-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                      <div>

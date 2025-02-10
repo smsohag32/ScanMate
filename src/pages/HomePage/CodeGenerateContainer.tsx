@@ -27,10 +27,7 @@ const CodeGenerateContainer = () => {
             <div>
                <h1 className="text-2xl lg:text-3xl font-normal text-center">
                   QR Code & Bar Code{" "}
-                  <span className="relative">
-                     Generator
-                     <span className="h-8 absolute w-full top-1 rounded-[4px] shadow-sm ring-primary ring border-primary left-0 right-0 -bottom-5"></span>
-                  </span>
+                  <span className="relative font-bold text-primary">Generator</span>
                </h1>
 
                <p className="text-center text-lg max-w-4xl mx-auto mt-4 mb-8">

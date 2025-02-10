@@ -94,7 +94,7 @@ const ImageQrScanner = () => {
    );
 
    return (
-      <div className="grid items-start gap-4 container mx-auto px-4 w-full grid-cols-1 lg:grid-cols-2  h-full">
+      <div className="grid items-start gap-4  w-full grid-cols-1 lg:grid-cols-2  h-full">
          <Card className="w-full h-full lg:col-span-1">
             <CardHeader>
                <CardTitle>QR Code & Barcode Scanner</CardTitle>
