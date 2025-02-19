@@ -5,7 +5,7 @@ import { Hero } from "@/components/hero/Hero";
 
 const HomePage = () => {
    return (
-      <div className="">
+      <div className="bg-[#f6f6f6]">
          <Hero />
          <CodeGenerateContainer />
          <CodeScannerContainer />

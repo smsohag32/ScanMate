@@ -2,7 +2,7 @@ import ImageQrScanner from "@/components/CodeScanner/ImageQrScanner";
 
 const CodeScannerContainer = () => {
    return (
-      <div className=" bg-[#F2F2FF] pb-16">
+      <div className="  pb-16 pt-16">
          <div className="main-container">
             <div className="mb-6">
                <h2 className="text-2xl lg:text-3xl font-normal text-center">

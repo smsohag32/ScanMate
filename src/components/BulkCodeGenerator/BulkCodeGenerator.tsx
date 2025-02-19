@@ -178,8 +178,8 @@ export default function BulkCodeGenerator() {
    };
 
    return (
-      <div className="bg-[#F2F2FF] pb-10">
-         <div className="main-container w-full">
+      <div className=" pb-10">
+   <div className="main-container w-full">
             <div className="mb-6">
                <h1 className="text-2xl lg:text-3xl font-normal text-center">
                   <span className="relative font-bold text-primary">Bulk</span>
@@ -308,8 +308,9 @@ export default function BulkCodeGenerator() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
+                        className="w-full"
                         transition={{ duration: 0.5 }}>
-                        <Card>
+                        <Card className="w-full">
                            <CardContent>
                               <div className="flex items-center pt-4 pb-4 justify-between flex-col lg:flex-row gap-4">
                                  <p>
@@ -343,6 +344,7 @@ export default function BulkCodeGenerator() {
                                              key={code.id}
                                              initial={{ opacity: 0, y: 20 }}
                                              animate={{ opacity: 1, y: 0 }}
+                                             className="border-b border-b-slate-200"
                                              transition={{ duration: 0.3 }}>
                                              <TableCell>{code.id}</TableCell>
                                              <TableCell>{code.code}</TableCell>

@@ -41,11 +41,11 @@ export function CodeGenerator({
    const [widthInput, setWidthInput] = useState<string>(codeWidth.toString());
    const [widthErr, setWidthErr] = useState<string | null>("");
    const inputTypeConfig = {
+      text: { icon: <QrCode className="h-4 w-4" />, placeholder: "Enter text for code generation" },
       url: {
          icon: <Globe className="h-4 w-4" />,
          placeholder: "Enter website URL (e.g., https://example.com)",
       },
-      text: { icon: <QrCode className="h-4 w-4" />, placeholder: "Enter text for code generation" },
       email: { icon: <Mail className="h-4 w-4" />, placeholder: "Enter email address" },
       tel: { icon: <Phone className="h-4 w-4" />, placeholder: "Enter phone number" },
       wifi: { icon: <Wifi className="h-4 w-4" />, placeholder: "Enter Wi-Fi network name" },
