@@ -65,7 +65,9 @@ export default function BulkCodeGenerator() {
       return Object.keys(validationErrors).length === 0;
    }, [generationMethod, startNumber, quantity]);
 
+   // generate code functionality
    const generateCodes = useCallback(async () => {
+      // validate input
       if (!validateInputs()) {
          return;
       }
@@ -100,6 +102,9 @@ export default function BulkCodeGenerator() {
       }
    }, [quantity, codeType, validateInputs]);
 
+
+
+   // download code functionality
    const generateBatch = async (start: number, batchSize: number) => {
       const batchCodes: GeneratedCode[] = [];
 
@@ -140,7 +145,7 @@ export default function BulkCodeGenerator() {
          abortControllerRef.current.abort();
       }
    };
-
+    
    const downloadExcel = async () => {
       setDownloadLoading(true);
       const workbook = new ExcelJS.Workbook();
@@ -179,7 +184,7 @@ export default function BulkCodeGenerator() {
 
    return (
       <div className=" pb-10">
-   <div className="main-container w-full">
+         <div className="main-container w-full">
             <div className="mb-6">
                <h1 className="text-2xl lg:text-3xl font-normal text-center">
                   <span className="relative font-bold text-primary">Bulk</span>

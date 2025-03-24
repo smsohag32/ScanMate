@@ -1,6 +1,4 @@
-# React + TypeScript
-
-# QR & Barcode Generator Web Application
+# ScanMate - QR & Barcode Generator Web Application
 
 This is a web-based QR and Barcode Generator that allows users to create bulk QR codes and barcodes for various purposes, such as inventory management, product labeling, and marketing campaigns. Users can select the code type (QR or Barcode), configure the generation method (serial or random), and customize options like prefix, starting number, and quantity. Once the codes are generated, they can be downloaded as an Excel file.
 
@@ -36,7 +34,7 @@ Make sure you have the following installed:
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/smsohag32/qr-and-bar-code-generator.git
+   git clone https://github.com/smsohag32/scanmate.git
    ```
 
 2. **Navigate into the project directory**:
